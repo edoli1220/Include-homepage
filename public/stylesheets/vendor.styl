@@ -1,0 +1,101 @@
+backColor      = url('/images/lines.jpg')
+backDarkColor  = #222
+backLightColor = #aaa
+inputColor     = rgba(0, 0, 0, 0.2)
+
+aColor     = #38a6d5
+aDarkColor = #0087b4
+aRedColor  = #ff8b71
+
+
+fontColor        = #aaa
+buttonFontcolor  = #999
+buttonFontShadow =  #333
+
+normalBorder = rgba(0, 0, 0, 0.3)
+darkBorder   = #000;
+lightBorder  = #aaa;
+liBorder     = rgba(0,0,0,0.2)
+
+border-radius()
+  -webkit-border-radius: arguments
+  -moz-border-radius: arguments
+  border-radius: arguments
+
+box-shadow()
+  -webkit-box-shadow: arguments
+  -moz-box-shadow: arguments
+  box-shadow: arguments
+
+animation-name()
+  -webkit-animation-name arguments
+  -moz-animation-name arguments
+  animation-name arguments
+
+animation-duration()
+  -webkit-animation-duration arguments
+  -moz-animation-duration arguments
+  animation-duration arguments
+
+animation-iteration-count()
+  -webkit-animation-iteration-count arguments
+  -moz-animation-iteration-count arguments
+  animation-iteration-count arguments
+
+animation-timing-function()
+  -webkit-animation-timing-function arguments
+  -moz-animation-timing-function arguments
+  animation-timing-function arguments
+
+box-sizing()
+  -webkit-box-sizing arguments
+  -moz-box-sizing arguments
+  box-sizing arguments
+
+background-gradient()
+  ms-filter-start = ms-filter-hex(arguments[1])
+  ms-filter-finish = ms-filter-hex(arguments[2])
+  background-image linear-gradient(arguments)
+  background-image -o-linear-gradient(arguments)
+  background-image -moz-linear-gradient(arguments)
+  background-image -webkit-linear-gradient(arguments)
+  background-image -ms-linear-gradient(arguments)
+  filter 'progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorstr=%s, EndColorstr=%s)' % (ms-filter-start ms-filter-finish)
+
+bar-gradient()
+  background-color backColor
+  background-gradient bottom, #161622, #242430
+
+button-gradient()
+  background-color backColor
+  background-gradient bottom, #202028, #242430
+
+button-gradient-hover()
+  background-color backColor
+  background-gradient bottom, #161622, #202028
+
+glow-animation(name, start, end, size)
+  @keyframes name
+    0%
+      box-shadow 0 0 size start;
+    50%
+      box-shadow 0 0 size end;
+    100%
+      box-shadow 0 0 size start;
+
+text-glow-animation(name, start, end, size)
+  @keyframes name
+    0%
+      text-shadow 0 0 size start;
+    50%
+      text-shadow 0 0 size end;
+    100%
+      text-shadow 0 0 size start;
+
+ms-filter-hex(color)
+  hex-value = ('0') ('1') ('2') ('3') ('4') ('5') ('6') ('7') ('8') ('9') ('A') ('B') ('C') ('D') ('E') ('F')
+  red   = hex-value[floor(red(color)    / 16)] + hex-value[floor(red(color)    % 16)]
+  green = hex-value[floor(green(color)  / 16)] + hex-value[floor(green(color)  % 16)]
+  blue  = hex-value[floor(blue(color)   / 16)] + hex-value[floor(blue(color)   % 16)]
+  alpha = hex-value[floor(alpha(color) * 255 / 16)] + hex-value[floor(alpha(color) * 255 % 16)]
+  '#' + alpha + red + green + blue

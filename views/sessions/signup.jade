@@ -1,0 +1,24 @@
+div.verticalCenter
+  form(action='/signup', method='POST')
+    p
+      label(for='userID') 아이디
+      input(type='text', name='userID', id='userID')
+    p
+      label(for='nickname') 닉네임
+      input(type='text', name='nickname', id='nickname')
+    p
+      label(for='password') 비밀번호
+      input(type='password', name='password1', id='password')
+    p
+      label(for='password') 비밀번호'
+      input(type='password', name='password2', id='password')
+    p
+      label(for='email') E-mail
+      input(type='text', name='email', id='email')
+    p
+      label(for='key') key
+      input(type='text', name='key', id='key')
+    p
+      button(type='submit')
+        가입하기
+    p= message || ''

@@ -1,0 +1,51 @@
+link(rel='stylesheet', href='/stylesheets/wrap.css')
+div#bodyWrap
+  div#headerWrap
+    h1#logo
+      a(href="/")
+    
+    
+    ul#menuList
+      li#menuHome
+        a(href="/").textShadow 홈
+      li#menuAbout
+        a(href="/about").textShadow 어바웃
+      li#menuActivities
+        a(href="/activities").textShadow 활동
+      li#menuProjects
+        a(href="/projects").textShadow 프로젝트
+      li#menuStudies
+        a(href="/studies").textShadow 스터디
+      li#menuSeminar.boardLink
+        a(OnClick="checkBoard('seminar')").textShadow 세미나
+      li#menuMeeting.boardLink
+        a(OnClick="checkBoard('meeting')").textShadow 회의
+      li#menuWiki.textShadow
+        a(href="http://include.kaist.ac.kr/pjknkda/dokuwiki/doku.php").textShadow 위키
+      li#menuIngcam.textShadow
+        a(href="/ingcam").textShadow 잉캠
+      li#menuGarbage.boardLink.textShadow
+        a(OnClick="checkBoard('garbage')").textShadow 가비지
+      - if(isAuthenticated)
+        li#logout
+          a(href="/logout").redLink.textShadow 로그아웃
+      - else
+        li#login
+          a(href="/login").redLink.textShadow 로그인    
+
+
+
+  div#contentWrap
+    block contentPage
+
+  div#footerWrap
+    h3 INCLUDE
+    p 동아리방: 태울관 2113호(본원), 메일: kaist.include@gmail.com
+
+div#cover
+
+div#popup
+  span#popupMessage
+  button#popupYes Yes
+  button#popupNo No
+

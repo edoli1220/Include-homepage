@@ -1,0 +1,43 @@
+extends ../wrap
+block contentPage
+  h2.title= document.title
+  div.content(style="text-align:left")!= document.content
+
+  - if (document.files.length > 0)
+    div.dataFiles
+      div.attachmentsTitle 첨부파일
+      ul.attachments
+        each fileName in document.files
+          li 
+            a(href="/board/file?id=#{document._id}&name=#{fileName}&boardName=#{boardName}")= fileName.replace(document._id,'')
+
+  div.commentContainer
+    div.commentTitle 댓글
+    - if(document.comments)
+      ul.comments
+          each comment in document.comments
+            li
+              - if (user && user.nickname == comment.name)
+                div.commentDelete(onClick="deleteComment('/board/#{boardName}/#{document._id}/comment/del', '#{comment._id}',this)")
+                  img(src='/images/delete.png')
+              div.commentName #{comment.name} - #{comment.date && comment.date.getFullYear() + '.' + (comment.date.getMonth() + 1) + '.' + (comment.date.getDate()) + '  ' + comment.date.toString().slice(16,24)}
+              div.commentContent!= comment.content.split('\n').join('</br>')
+    - if(isAuthenticated)
+      div.addComment
+        textarea(name='content')#newCommentContent.wide
+        button(type='button', onclick="addComment('/board/#{boardName}/#{document._id}/comment')")#submitComment 댓글달기
+
+
+  div.documentFooter
+    - if(isWriter)
+      a(href='/board/#{boardName}/edit/#{document._id}').button#edit 편집
+      a(onClick="javascript:deleteDocument('/board/#{boardName}/delete/#{document._id}');", style='cursor:pointer').button#delete 삭제
+    a(href='/board/#{boardName}').button#list 목록
+
+  li(style="display:none")#commentListItemTemplate
+    div.commentDelete(href="/board/#{boardName}/#{document._id}/comment/del")
+      img(src="/images/delete.png")
+    div.commentName
+    div.commentContent
+
+

@@ -1,0 +1,212 @@
+@import 'vendor'
+
+//--- Board List ---
+ul#boardList
+  margin 0 20px 16px 20px
+  padding 0
+  background url('/images/wood.png')
+
+ul#boardList li
+  display block
+  box-shadow inset 1px 1px #4a4a4a
+  border-right solid 1px #0d0d0d
+  border-bottom solid 1px #0d0d0d
+  height 28px
+  &:first-child
+    &:hover
+      background none
+  &:hover
+    background rgba(0, 0 ,0, 0.2)
+
+ul#boardList li a
+  color aColor
+
+ul#boardList li div
+  padding 6px 0 5px 0
+  text-overflow ellipsis
+  overflow hidden
+  white-space nowrap
+
+ul#boardList li div.titleText
+  max-width 480px
+  margin 0
+  padding 0
+  display inline-block
+
+ul#boardList li div.commentsCount
+  color buttonFontcolor
+  font-size 0.8em
+  margin 0 0 0 8px
+  padding 0
+  display inline-block
+
+ul#boardList li div.id
+  width 40px
+  float left
+  box-shadow 1px 0 liBorder
+  
+ul#boardList li div.title
+  padding 6px 12px 6px 12px
+  text-align left
+
+ul#boardList li div.writer
+  float right
+  width 128px
+  box-shadow -1px 0 liBorder
+
+ul#boardList li div.date
+  float right
+  width 128px
+  box-shadow -1px 0 liBorder
+
+div#boardFooter
+    padding 0 20px 0 20px
+    margin-bottom 64px
+
+div#divideNumbers
+  display inline-block
+
+a#newBoard
+  float right
+
+//--- Board Read ---
+
+div.content
+  padding 16px
+  border solid 1px normalBorder
+
+div.attachmentsTitle, div.commentTitle
+  padding 8px
+  background-color: normalBorder
+
+div.dataFiles
+  width 100%  
+  margin-top 32px
+  border solid 1px normalBorder
+
+div.dataFiles ul.attachments
+  margin 16px
+  padding 0
+
+div.dataFiles li
+  margin-top -1px
+  padding 4px
+  border solid 1px #55a
+  background backDarkColor
+
+div.dataFiles li a
+  display block
+  width 100%
+
+div.documentFooter
+  text-align right
+
+div.documentFooter a
+    margin 16px
+
+div.commentContainer
+  margin-top 32px
+  padding-button 48px
+  border solid 1px normalBorder
+
+div.commentContainer ul
+  margin 16px
+  padding 0
+
+div.commentContainer ul li
+  margin 2px 0 2px 0
+  padding 8px
+  text-align left
+  background normalBorder
+
+div.commentContainer ul li div.commentName
+  font-weight bold
+
+div.commentContainer div.commentDelete
+  float right
+  cursor pointer
+  &:hover
+    background backLightColor
+
+div.commentContainer div.addComment
+  margin 20px
+  height 160px
+
+div.commentContainer div.addComment textarea
+  padding 4px
+  display block
+  height 120px
+
+div.commentContainer button
+  margin-top 16px
+  margin-right -4px
+  float right
+
+//--- Write Document ---
+
+div.dataDropField
+  margin 0 196px 16px 196px
+  height 64px
+  border-radius 1em
+  border dashed 4px rgba(0, 0, 0, 0.3)
+
+div.dataDropBox
+  margin 4px
+  border-radius 1em
+  width inherit
+  height inherit
+  pointer-events none
+
+div.dataDropBox p
+  margin 0
+  position relative
+  top 16px
+  font-size 1.5em
+  
+
+div.dataFileContainer input
+  visibility hidden
+  width 0
+  height 0
+
+div.fileDelete
+  display inline-block
+  cursor pointer
+  &:hover
+    background backLightColor
+
+ul.dataFileList
+  width 256px
+  margin auto
+  margin-top 16px
+  padding 0
+
+li.fileListItem
+  margin-top -1px
+  padding 4px
+  border solid 1px #55a
+  background backDarkColor
+
+ul.dataFileList div.fileName
+  display inline-block
+  width 228px
+  white-space nowrap
+  text-overflow ellipsis
+  overflow hidden
+
+div.dataFileProgress
+  display none
+  margin auto
+  margin-bottom 16px
+  width 512px
+  height 32px
+  white-space nowrap
+  overflow hidden
+  border solid 1px normalBorder
+
+div.dataFileProgressBar
+  position relative
+  left -512px
+  width 512px
+  height 32px
+  background rgba(0,100,125,0.3)

@@ -1,0 +1,27 @@
+extends ../wrap
+block contentPage
+  h2= boardName
+  ul#boardList
+    li
+      div.id 번호
+      div.date 날짜
+      div.writer 글쓴이
+      div.title(style="text-align:center") 제목
+    each document in documents
+      li
+        a(href='/board/#{boardName}/read/#{document._id}')
+          div.id= document.id
+          div.date= document.date.getFullYear() + '.' + (document.date.getMonth() + 1) + '.' + document.date.getDate() + ' ' + document.date.toString().slice(16,21)
+          div.writer= document.writer
+          div.title
+            div.titleText= document.title
+            - if(document.comments.length > 0)
+              div.commentsCount= '[' + document.comments.length + ']'
+  div#boardFooter
+    div#divideNumbers
+      each i in numbers
+        a(href="/board/#{boardName}?index=#{i}").number.button= i
+    - if(isAuthenticated)
+      a(href="/board/#{boardName}/new")#newBoard.button 글쓰기
+
+  

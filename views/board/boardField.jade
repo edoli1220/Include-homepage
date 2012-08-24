@@ -1,0 +1,32 @@
+form(method="post", action="/board/#{boardName}/#{document._id || ''}", enctype="multipart/form-data")#formContent
+  div.boardWrap
+    div.title
+      input(name="title", value=document.title || '', placeholder="title").wide.titleInput
+    br
+    div
+      textarea(name="content", id="ir1", rows="15", cols="100").contentInput= document.content || ""
+    br
+  
+    
+  
+    div.dataFileContainer
+      div.dataDropField
+        div.dataDropBox
+          p
+            파일을 여기로 집어 넣어 주십시오.
+      button(onclick="javascript:$('#fileInput').click()", type="button") 첨부하기
+      input(type="file", name="dataFile", onchange="onFile(this)", multiple="multiple").fileInput#fileInput
+      ul.dataFileList
+        - if (document.files)
+          each dataFile, i in document.files
+            div
+  
+    br
+    div.dataFileProgress
+      div.dataFileProgressBar
+    
+button(onclick="submitContents(this);submitData();", type="button") 저장
+
+
+script(type="text/javascript", src="/javascripts/smartEditor/js/HuskyEZCreator.js")
+script(type="text/javascript", src="/javascripts/initSmartEditor.js")
