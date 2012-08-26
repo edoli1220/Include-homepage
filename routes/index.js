@@ -4,11 +4,6 @@
  */
 var fs = require('fs');
 
-var FileAPI = require('file-api'),
-  File = FileAPI.File,
-  FileList = FileAPI.FileList,
-  FileReader = FileAPI.FileReader;
-
 function isAuthenticated(req) {
   var isAuthenticated;
   if (req.session.user) {

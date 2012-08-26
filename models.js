@@ -31,7 +31,7 @@ exports.DocumentModel = function(boardName) {
     , files   : [String]
     , comments: [new Schema({
         tempID : String
-      , name   : String
+      , writer : String
       , content: String
       , date   : {type: Date}
     })]
@@ -74,7 +74,7 @@ var saveGridStore = exports.saveGridStore = function(fileName, buffer, callback)
         gs.write(buffer, function(err, gs) {
           gs.close(function(err, result) {
             if (callback) {
-              callback(result, fileName);
+              callback(err, result, fileName);
             }
           });
         });
@@ -86,7 +86,7 @@ var saveGridStore = exports.saveGridStore = function(fileName, buffer, callback)
 var checkGridStore = exports.checkGridStore = function(fileName, callback) {
   GridStore.exist(nativeDB, fileName, function(result) {
     if (callback) {
-      callback(result);
+      callback(err, result);
     }
   });
 }
@@ -100,7 +100,7 @@ exports.readGridStore = function(fileName, callback) {
         //var buffer = new Buffer(data, 'base64');
         gs.close(function(err, result) {
           if (callback) {
-            callback(result, buffer);
+            callback(err, result, buffer);
           }
         });
       });

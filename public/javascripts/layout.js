@@ -71,14 +71,6 @@ $(window).load(function() {
   });
 });
 
-google.load( "webfont", "1" );
- google.setOnLoadCallback(function() {
-  WebFont.load({ custom: {
-   families: [ "NanumGothicBold" ],
-   urls: [ "http://fontface.kr/NanumGothicBold/css" ]
-  }});
- });
-
 function setCenter(component) {
   var top, left, div;
   div = component;
@@ -191,14 +183,14 @@ var isMobile = {
 
 var checkBoard = function(boardName) {
     $.get('/board/check/' + boardName, function(data) {
-      if (data.isAvailable) {
+      if (!data) {
         location.href = '/board/' + boardName;
       } else {
-        if (data.type == 0) {
+        if (data == 'invalid board') {
           popup(boardName + ' 게시판이 존재하지 않습니다.', function() {
             popdown();
           });
-        } else if (data.type == 1) {
+        } else if (data == 'not authenticated') {
           popup(boardName + ' 게시판에 들어가기 위해서는 로그인이 필요합니다.', function() {
             popdown();
           });

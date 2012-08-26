@@ -1,4 +1,4 @@
-extends ../wrap
+extends ../layout
 block contentPage
   h2 게시글 작성
-  !=partial('board/boardField', { document: document})
+  include boardField

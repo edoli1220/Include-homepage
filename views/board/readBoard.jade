@@ -1,4 +1,4 @@
-extends ../wrap
+extends ../layout
 block contentPage
   h2.title= document.title
   div.content(style="text-align:left")!= document.content
@@ -17,10 +17,10 @@ block contentPage
       ul.comments
           each comment in document.comments
             li
-              - if (user && user.nickname == comment.name)
+              - if (user && user.nickname == comment.writer)
                 div.commentDelete(onClick="deleteComment('/board/#{boardName}/#{document._id}/comment/del', '#{comment._id}',this)")
                   img(src='/images/delete.png')
-              div.commentName #{comment.name} - #{comment.date && comment.date.getFullYear() + '.' + (comment.date.getMonth() + 1) + '.' + (comment.date.getDate()) + '  ' + comment.date.toString().slice(16,24)}
+              div.commentName #{comment.writer} - #{comment.date && comment.date.getFullYear() + '.' + (comment.date.getMonth() + 1) + '.' + (comment.date.getDate()) + '  ' + comment.date.toString().slice(16,24)}
               div.commentContent!= comment.content.split('\n').join('</br>')
     - if(isAuthenticated)
       div.addComment
@@ -29,7 +29,7 @@ block contentPage
 
 
   div.documentFooter
-    - if(isWriter)
+    - if(user && document.writer == user.nickname)
       a(href='/board/#{boardName}/edit/#{document._id}').button#edit 편집
       a(onClick="javascript:deleteDocument('/board/#{boardName}/delete/#{document._id}');", style='cursor:pointer').button#delete 삭제
     a(href='/board/#{boardName}').button#list 목록

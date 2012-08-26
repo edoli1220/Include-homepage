@@ -1,1 +1,5 @@
-div#projectList{padding:32px;text-align:left;border:solid 1px rgba(0,0,0,0.3)}
+div#projectList {
+  padding: 32px;
+  text-align: left;
+  border: solid 1px rgba(0,0,0,0.3);
+}

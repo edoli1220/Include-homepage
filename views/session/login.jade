@@ -1,0 +1,12 @@
+div.verticalCenter
+  form(action='/login', method='POST')
+    input(type='hidden', name='redir', value= redir)
+    p
+      label(for='userID') 아이디
+      input(type='text', name='userID', id='userID')
+    p
+      label(for='password') 비밀번호
+      input(type='password', name='password', id='password')
+    p
+      button(type='submit')
+        로그인하기

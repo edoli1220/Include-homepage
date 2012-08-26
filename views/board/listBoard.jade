@@ -1,4 +1,4 @@
-extends ../wrap
+extends ../layout
 block contentPage
   h2= boardName
   ul#boardList
@@ -19,7 +19,7 @@ block contentPage
               div.commentsCount= '[' + document.comments.length + ']'
   div#boardFooter
     div#divideNumbers
-      each i in numbers
+      each i in pages
         a(href="/board/#{boardName}?index=#{i}").number.button= i
     - if(isAuthenticated)
       a(href="/board/#{boardName}/new")#newBoard.button 글쓰기

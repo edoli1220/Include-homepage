@@ -27,11 +27,31 @@ var boardLoad = function () {
   
   if (!divDataFileContainer.length == 0) {
     divDataDropBox.height(divDataDropField.height() - 8);
-  
-    divDataDropField[0].addEventListener("dragenter", dragenterFile, false);
-    divDataDropField[0].addEventListener("dragleave", dragleaveFile, false);
-    divDataDropField[0].addEventListener("dragover" , dragoverFile , false);
-    divDataDropField[0].addEventListener("drop"     , dropFile     , false);
+    
+    divDataDropField.filedrop({
+      error: function (err, file) {
+        switch(err) {
+          case 'BrowserNotSupported':
+            //do Something
+            break;
+          case 'TooManyFiles':
+            //do Something
+            break;
+          case 'FileTooLarge':
+            console.log("Too Large");
+            //do Something
+            break;
+          default:
+            break;
+        }
+      },
+      maxfilesize: 1,
+      dragEnter: dragenterFile,
+      dragLeave: dragleaveFile,
+      dragOver : dragoverFile,
+      drop     : dropFile,
+      uploadStarted: uploadFile
+    });
     
     divDataDrop.divDataDropField = divDataDropField;
     divDataDrop.divDataDropBox   = divDataDropBox;
@@ -67,19 +87,22 @@ var addComment = function (href) {
   $.post(href, data, function(data) {
     var listItem
       , deleteURL
-      , dateString;
+      , dateString
+      , date;
       
-    dateString = data.date && data.date.slice(0,4)
-      + '.' + (data.date.slice(6,8)) 
-      + '.' + (data.date.slice(10,12)) 
-      + '  ' + data.date.toString().slice(16,24);
+    date = data.date.toString();
+    dateString = date.slice(0,4)
+      + '.' + (date.slice(6,8)) 
+      + '.' + (date.slice(10,12)) 
+      + '  ' + date.slice(16,24);
     listItem = $('#commentListItemTemplate').clone();
+    listItem.removeAttr('id');
     deleteURL = listItem.find('.commentDelete').attr('href');
     listItem.find('.commentDelete').click(function () {
       deleteComment(deleteURL, data._id, $(this))
     });
-    listItem.find('.commentContent').html(content.split('\n').join('</br>'));
-    listItem.find('.commentName').text(data.name + ' - ' + dateString);
+    listItem.find('.commentContent').html(data.content.split('\n').join('</br>'));
+    listItem.find('.commentName').text(data.writer + ' - ' + dateString);
     
     divComments.ulComments.append(listItem);
     listItem.slideDown(300);
@@ -119,56 +142,21 @@ var deleteComment = function (href, id, element) {
 
 function dragenterFile (event) {
   divDataDrop.divDataDropBox.css('background', 'rgba(0,0,0,0.3)');
- 	event.stopPropagation();
- 	event.preventDefault();
 }
 
 function dragleaveFile (event) {
   divDataDrop.divDataDropBox.css('background', '');
-  event.stopPropagation();
- 	event.preventDefault();
 }
 
 function dragoverFile (event) {
-  event.stopPropagation();
-  event.preventDefault();
 }
 
 function dropFile (event) {
   divDataDrop.divDataDropBox.css('background', '');
-  event.stopPropagation();
-  event.preventDefault();
-  if(typeof event.dataTransfer.files == 'undefined'){
-  	popup("HTML5 지원이 제대로 이루어 지지 않는 브라우저 입니다.", function() {
-      popdown();
-    });
-	} else {
-  	//변수 선언
-  	var files
-      , file
-  	  , nCount
-  		, aFileList
-      , totalSize;
-  	
-  	//초기화	
-  	files = event.dataTransfer.files;
-  	nCount = files.length;
-  	aFileList = [];
-    totalSize = 0;
-  	
-  	if (!!files && nCount === 0){
-      //파일이 아닌, 웹페이지에서 이미지를 드래서 놓는 경우.
-      popup("정상적인 첨부 방식이 아닙니다.", function() {
-        popdown();
-      });
-      return;
-  	}
-    			
-    for (var i = 0 ; i < nCount ; i++){
-      file = files[i];
-      addFile(file);
-    }
-	}
+}
+
+function uploadFile (i, file, len) {
+  addFile(file);
 }
 
 var onFile = function (element) {
@@ -280,7 +268,7 @@ var submitData = function () {
 };
 
 ////=======Socket IO===============
-var socket = io.connect('http://alicei.kaist.ac.kr:3017');
+var socket = io.connect('http://localhost:3013');
 var divFileProgress
   , divFileProgressBar;
 
